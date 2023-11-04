@@ -1,0 +1,25 @@
+#! /bin/sh
+
+case "$1" in
+	start)
+		echo "Loading scull driver"
+		/etc/ldd/scull_load
+		echo "Loading faulty driver"
+		/etc/ldd/module_load "faulty"
+		echo "Loading hello module"
+		/etc/ldd/module_load "hello"
+		;;
+	stop)
+		echo "Unloading hello module"
+		/etc/ldd/module_unload "hello"
+		echo "Unloading faulty driver"
+		/etc/ldd/module_unload "faulty"
+		echo "Unloading scull driver"
+		/etc/ldd/scull_unload
+		;;
+	*)
+		echo "Usage: $0 {start|stop}"
+	exit 1
+esac
+
+exit 0
